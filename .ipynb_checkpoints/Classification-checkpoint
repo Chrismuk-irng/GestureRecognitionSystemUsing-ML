@@ -1,0 +1,334 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "2d58699d-f72f-4ff8-9eee-37a290d86504",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import cv2\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "6a392b3e-333a-4d17-a6d2-1070a97ada8d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from keras.models import load_model\n",
+    "import keras\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "7c413ca1-0d0c-4e49-adb3-e4c09482be01",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model = load_model(r\"C:\\Users\\USER\\Documents\\HandGestureRecognitionSystemProject\\model\\resnetmodel.hdf5\")\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "2667f49f-3756-43b1-a9bf-f8fcd2dfce3f",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "vic = cv2.VideoCapture(0)\n",
+    "vic.set(cv2.CAP_PROP_FRAME_WIDTH, 400)\n",
+    "vic.set(cv2.CAP_PROP_FRAME_HEIGHT, 400)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "e5e52ca2-4e6d-436a-a060-c62a2dddcf81",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "labels = pd.read_csv(r\"C:\\Users\\USER\\Documents\\Dataset\\jester-v1-labels.csv\", header = None)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "e3e30775-37db-48e3-a49d-e680348e881e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "                                0\n",
+      "0                    Swiping Left\n",
+      "1                   Swiping Right\n",
+      "2                    Swiping Down\n",
+      "3                      Swiping Up\n",
+      "4               Pushing Hand Away\n",
+      "5                 Pulling Hand In\n",
+      "6        Sliding Two Fingers Left\n",
+      "7       Sliding Two Fingers Right\n",
+      "8        Sliding Two Fingers Down\n",
+      "9          Sliding Two Fingers Up\n",
+      "10       Pushing Two Fingers Away\n",
+      "11         Pulling Two Fingers In\n",
+      "12           Rolling Hand Forward\n",
+      "13          Rolling Hand Backward\n",
+      "14         Turning Hand Clockwise\n",
+      "15  Turning Hand Counterclockwise\n",
+      "16      Zooming In With Full Hand\n",
+      "17     Zooming Out With Full Hand\n",
+      "18    Zooming In With Two Fingers\n",
+      "19   Zooming Out With Two Fingers\n",
+      "20                       Thumb Up\n",
+      "21                     Thumb Down\n",
+      "22                   Shaking Hand\n",
+      "23                      Stop Sign\n",
+      "24               Drumming Fingers\n",
+      "25                     No gesture\n",
+      "26             Doing other things\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(labels)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "3bbd3bc2-073f-4d1e-9cfc-ed2b1f6e538d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1/1 [==============================] - 0s 263ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 252ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 258ms/step\n",
+      "0    Doing other things\n",
+      "Name: 26, dtype: object\n",
+      "Doing other things\n",
+      "1/1 [==============================] - 0s 260ms/step\n",
+      "0    Doing other things\n",
+      "Name: 26, dtype: object\n",
+      "Doing other things\n",
+      "1/1 [==============================] - 0s 300ms/step\n",
+      "0    Doing other things\n",
+      "Name: 26, dtype: object\n",
+      "Doing other things\n",
+      "1/1 [==============================] - 0s 242ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 241ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 238ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 252ms/step\n",
+      "0    Doing other things\n",
+      "Name: 26, dtype: object\n",
+      "Doing other things\n",
+      "1/1 [==============================] - 0s 244ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 239ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 234ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 242ms/step\n",
+      "0    Pushing Two Fingers Away\n",
+      "Name: 10, dtype: object\n",
+      "Pushing Two Fingers Away\n",
+      "1/1 [==============================] - 0s 241ms/step\n",
+      "0    Sliding Two Fingers Left\n",
+      "Name: 6, dtype: object\n",
+      "Sliding Two Fingers Left\n",
+      "1/1 [==============================] - 0s 255ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 253ms/step\n",
+      "0    No gesture\n",
+      "Name: 25, dtype: object\n",
+      "No gesture\n",
+      "1/1 [==============================] - 0s 255ms/step\n",
+      "0    Swiping Right\n",
+      "Name: 1, dtype: object\n",
+      "Swiping Right\n"
+     ]
+    },
+    {
+     "ename": "NameError",
+     "evalue": "name 'Keyboard' is not defined",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[16], line 24\u001b[0m\n\u001b[0;32m     22\u001b[0m \u001b[38;5;28;01melif\u001b[39;00m(predicted_value \u001b[38;5;241m==\u001b[39m \u001b[38;5;241m1\u001b[39m):\n\u001b[0;32m     23\u001b[0m     final_label \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mSwiping Right\u001b[39m\u001b[38;5;124m\"\u001b[39m\n\u001b[1;32m---> 24\u001b[0m     \u001b[43mKeyboard\u001b[49m\u001b[38;5;241m.\u001b[39mkey(Keyboard\u001b[38;5;241m.\u001b[39mVK_MEDIA_PREV_TRACK)\n\u001b[0;32m     25\u001b[0m \u001b[38;5;28;01melif\u001b[39;00m(predicted_value \u001b[38;5;241m==\u001b[39m \u001b[38;5;241m2\u001b[39m): \n\u001b[0;32m     26\u001b[0m     final_label \u001b[38;5;241m=\u001b[39m \u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mSwiping Down\u001b[39m\u001b[38;5;124m\"\u001b[39m\n",
+      "\u001b[1;31mNameError\u001b[0m: name 'Keyboard' is not defined"
+     ]
+    }
+   ],
+   "source": [
+    "buffer = []\n",
+    "cls = []\n",
+    "predicted_value = 0\n",
+    "final_label = \"\"\n",
+    "i = 1\n",
+    "\n",
+    "while(vic.isOpened()):\n",
+    "    ret, frame = vic.read()\n",
+    "    if ret:\n",
+    "        image = cv2.resize(frame, (96, 64))\n",
+    "        image = image / 255.0\n",
+    "        buffer.append(image)\n",
+    "        if(i % 16 == 0):\n",
+    "            buffer = np.expand_dims(buffer, 0)\n",
+    "            predicted_value = np.argmax(model.predict(buffer))\n",
+    "            cls = labels.iloc[predicted_value]\n",
+    "            print(cls)\n",
+    "            print(cls.iloc[0])\n",
+    "            if(predicted_value == 0):\n",
+    "                final_label = \"Swiping Left\"\n",
+    "                Keyboard.key(Keyboard.VK_MEDIA_NEXT_TRACK)\n",
+    "            elif(predicted_value == 1):\n",
+    "                final_label = \"Swiping Right\"\n",
+    "                Keyboard.key(Keyboard.VK_MEDIA_PREV_TRACK)\n",
+    "            elif(predicted_value == 2): \n",
+    "                final_label = \"Swiping Down\"\n",
+    "            elif(predicted_value == 3): \n",
+    "                final_label = \"Swiping Up\"\n",
+    "                Keyboard.key(Keyboard.VK_VOLUME_DOWN)\n",
+    "            elif(predicted_value == 4): \n",
+    "                final_label = \"Pushing hand away\"\n",
+    "            elif(predicted_value == 5): \n",
+    "                final_label = \"Pulling hand in\"\n",
+    "            elif(predicted_value == 6): \n",
+    "                final_label = \"Sliding two fingers left\"\n",
+    "            elif(predicted_value == 7): \n",
+    "                final_label = \"Sliding two fingers right\"\n",
+    "            elif(predicted_value == 8): \n",
+    "                final_label = \"Sliding two fingers down\"\n",
+    "                Keyboard.key(Keyboard.VK_VOLUME_DOWN)\n",
+    "            elif(predicted_value == 9): \n",
+    "                final_label = \"Sliding two fingers up\"\n",
+    "                Keyboard.key(Keyboard.VK_VOLUME_UP)\n",
+    "            elif(predicted_value == 10): \n",
+    "                final_label = \"Pushing two fingers away\"\n",
+    "            elif(predicted_value == 11): \n",
+    "                final_label = \"Pulling two fingers in\"\n",
+    "            elif(predicted_value == 12): \n",
+    "                final_label = \"Rolling hand forward\"\n",
+    "            elif(predicted_value == 13): \n",
+    "                final_label = \"Rolling hand backward\"\n",
+    "            elif(predicted_value == 14): \n",
+    "                final_label = \"Turning hand clockwise\"\n",
+    "            elif(predicted_value == 15): \n",
+    "                final_label = \"Turning hand counterclockwise\"\n",
+    "            elif(predicted_value == 16): \n",
+    "                final_label = \"Zooming in with full hand\"\n",
+    "            elif(predicted_value == 17): \n",
+    "                final_label = \"Zooming out with full hand\"\n",
+    "            elif(predicted_value == 18): \n",
+    "                final_label = \"Zooming in with two fingers\"\n",
+    "            elif(predicted_value == 19): \n",
+    "                final_label = \"Zooming out with two fingers\"\n",
+    "            elif(predicted_value == 20): \n",
+    "                final_label = \"Thumb up\"\n",
+    "            elif(predicted_value == 21): \n",
+    "                final_label = \"Thumb down\"\n",
+    "            elif(predicted_value == 22): \n",
+    "                final_label = \"Shaking hand\"\n",
+    "                Keyboard.key(Keyboard.VK_VOLUME_MUTE)\n",
+    "            elif(predicted_value == 23): \n",
+    "                final_label = \"Stop sign\"\n",
+    "                Keyboard.key(Keyboard.VK_MEDIA_PLAY_PAUSE)\n",
+    "            elif(predicted_value == 24): \n",
+    "                final_label = \"Drumming fingers\"\n",
+    "                Keyboard.key(Keyboard.VK_MEDIA_PLAY_PAUSE)\n",
+    "            elif(predicted_value == 25): \n",
+    "                final_label = \"No gesture\"\n",
+    "            else:\n",
+    "                final_label = \"Doing other things\"\n",
+    "            \n",
+    "            cv2.imshow('frame', frame)\n",
+    "            buffer = []\n",
+    "        i += 1\n",
+    "        text = \"activity: {}\".format(final_label)\n",
+    "        cv2.putText(frame, text, (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 1.15, (0, 255, 0), 5)\n",
+    "        cv2.imshow(\"frame\", frame)\n",
+    "    \n",
+    "    if cv2.waitKey(1) & 0xFF == ord('q'):\n",
+    "        break\n",
+    "\n",
+    "vic.release()\n",
+    "cv2.destroyAllWindows()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "00d07fe6-82f8-44a7-892a-b9d0ea175932",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "HandGestureRecognitionSystem",
+   "language": "python",
+   "name": "handgesturerecognitionsystem"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
