@@ -1,13 +1,11 @@
-"""
-Author: Muhammad haris : Coding Cafe
-"""
+
 import cv2
 from keras.models import load_model
 import keras
 import numpy as np
 import pandas as pd
 
-model = load_model(r"C:\Users\irsar\AppData\Local\Programs\Python\Python37\modelall\resnetmodel.hdf5")
+model = load_model(r"C:\Users\\AppData\Local\Programs\Python\Python37\modelall\resnetmodel.hdf5")
 
 vid = cv2.VideoCapture(0)
 vid.set(cv2.CAP_PROP_FRAME_WIDTH, 400)
